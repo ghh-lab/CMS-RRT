@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_spectacle_seances",
+  "info": {
+    "displayName": "Seance",
+    "icon": "clock",
+    "description": "Une representation a un horaire donne"
+  },
+  "options": {},
+  "attributes": {
+    "startTime": {
+      "type": "time",
+      "required": true
+    },
+    "weezeventIframeSrc": {
+      "type": "string"
+    }
+  }
+}

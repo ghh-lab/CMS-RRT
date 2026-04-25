@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "spectacles",
+  "info": {
+    "singularName": "spectacle",
+    "pluralName": "spectacles",
+    "displayName": "Spectacle"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "salle": {
+      "type": "enumeration",
+      "enum": [
+        "Grand théâtre de la Maison de la Culture (Papeete)",
+        "Petit théâtre de la Maison de la Culture (Papeete)",
+        "Hotel Le TAHITI",
+        "Place To'ata (Papeete)"
+      ]
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "heroBanner": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "videoPreviewUrl": {
+      "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "spectacles"
+    },
+    "priceXPF": {
+      "type": "decimal"
+    },
+    "audience": {
+      "type": "enumeration",
+      "enum": [
+        "tout_public",
+        "famille",
+        "adultes",
+        "interdit_moins_16"
+      ]
+    },
+    "journees": {
+      "type": "component",
+      "repeatable": true,
+      "component": "spectacle.journee"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "defaultWeezeventIframeSrc": {
+      "type": "string"
+    }
+  }
+}
