@@ -21,7 +21,7 @@ RUN npm run build
 
 # Production stage — image légère
 FROM node:22-alpine
-RUN apk add --no-cache vips-dev build-base python3
+RUN apk add --no-cache vips-dev build-base python3 su-exec
 ENV NODE_ENV=production
 
 WORKDIR /opt/
@@ -31,9 +31,11 @@ ENV PATH=/opt/node_modules/.bin:$PATH
 
 WORKDIR /opt/app
 COPY --from=build /opt/app ./
-
-RUN mkdir -p public/uploads && chown -R node:node /opt/app
-USER node
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
+  && mkdir -p public/uploads \
+  && chown -R node:node /opt/app
 
 EXPOSE 1337
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["npm", "run", "start"]
