@@ -31,6 +31,9 @@ services:
     networks:
       - internal
       - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
     environment:
       HOST: 0.0.0.0
       PORT: 1337
