@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-strapi}
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
     healthcheck:
       test:
         [
@@ -26,8 +28,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    ports:
-      - '${PORT:-1337}:1337'
+    networks:
+      - internal
+      - dokploy-network
     environment:
       HOST: 0.0.0.0
       PORT: 1337
@@ -47,6 +50,11 @@ services:
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
     volumes:
       - strapi-uploads:/opt/app/public/uploads
+
+networks:
+  internal:
+  dokploy-network:
+    external: true
 
 volumes:
   postgres-data:
